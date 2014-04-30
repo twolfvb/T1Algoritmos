@@ -19,38 +19,7 @@ public class Useful {
 		}
 		return ret;
 	}
-	public static void merge(int[] A, int[] B, int first, int last){
-		int mid = first + (last - first) / 2;
-		for (int i = first; i <= last; i++) {
-			B[i] = A[i];
-		}
-		int i = first;
-		int j = mid + 1;
-		int k = first;
-		while(true){
-			if (k > last)
-				break;
-			if (i > mid && j <= last){
-				A[k] = B[j];
-				j++;
-			}
-			else if (j > last && i <= mid){
-				A[k] = B[i];
-				i++;
-			}
-			else if (B[i] < B[j]){
-				A[k] = B[i];
-				i++;
-			}
-			else{
-				A[k] = B[j];
-				j++;
-				
-			}
-			k++;
-		}
-		
-	}
+
 	public static void printArrays(int[] A, int[] B){
 		System.out.println("Array 1:" + "\t" + "Array2");
 		for (int i = 0; i < A.length; i++) {
@@ -74,6 +43,17 @@ public class Useful {
 		}
 		return A;
 	}
+	public static int[] generadorCasiOrdenado(int size, int desorden){
+		int[] A = new int[size];
+		for (int i = 0; i < A.length; i++) {
+			A[i] = i;
+		}
+		for (int i = 0; i < desorden; i++) {
+			swap(A,i,randInt(i,size));
+		}
+		return A;
+		
+	}
 	public static int randInt(int min, int max) {
 	    Random rand = new Random();
 	    int randomNum = rand.nextInt((max - min)) + min;
@@ -82,7 +62,7 @@ public class Useful {
 	public static void main(String[] args) {
 		int[] A = {3, 1, 5, 2, 4, 6, 1, 2, 3, 4};
 		int[] B = new int[A.length];
-		merge(A,B,0,1);
+	
 		printArray(A);
 	}
 }
