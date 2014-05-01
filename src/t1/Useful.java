@@ -19,7 +19,6 @@ public class Useful {
 		}
 		return ret;
 	}
-
 	public static void printArrays(int[] A, int[] B){
 		System.out.println("Array 1:" + "\t" + "Array2");
 		for (int i = 0; i < A.length; i++) {
@@ -48,21 +47,15 @@ public class Useful {
 		for (int i = 0; i < A.length; i++) {
 			A[i] = i;
 		}
+		desorden = desorden*A.length / 200;
 		for (int i = 0; i < desorden; i++) {
-			swap(A,i,randInt(i,size));
+			swap(A,randInt(0,size),randInt(0,size));
 		}
 		return A;
-		
 	}
 	public static int randInt(int min, int max) {
 	    Random rand = new Random();
 	    int randomNum = rand.nextInt((max - min)) + min;
 	    return randomNum;
-	}
-	public static void main(String[] args) {
-		int[] A = {3, 1, 5, 2, 4, 6, 1, 2, 3, 4};
-		int[] B = new int[A.length];
-	
-		printArray(A);
 	}
 }
