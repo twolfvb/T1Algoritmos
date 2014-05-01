@@ -1,16 +1,17 @@
 package t1;
 
 public class Sort {
+	static double comparaciones;
 	
 	//BubleSort
-	public static int[]  bubbleSort(int[] A,Counter contador){
+	public static int[]  bubbleSort(int[] A){
 		
 		for (int i = 0; i < A.length; i++) {
 			for (int j = 0; j < A.length - 1; j++) {
 				if (A[j] > A[j+1]){
 					Useful.swap(A,j,j+1);
 				}
-				contador.aumentar();
+				comparaciones++;
 			}
 		}
 		return A;
@@ -20,14 +21,14 @@ public class Sort {
 	
 	
 	//InsertSort
-	public static int[] insertSort(int[] A,Counter contador){
+	public static int[] insertSort(int[] A){
 	
 		for (int i = 0; i < A.length; i++) {
 			for (int j = i; j > 0; j--) {
 				if (A[j] < A[j-1]) {
 					Useful.swap(A,j,j-1);
 				}
-				contador.aumentar();
+				comparaciones++;
 			}
 		}
 		return A;
@@ -36,15 +37,15 @@ public class Sort {
 
 	
 	//Mergesort
-	public static int[] mergeSort(int[] A, int first,int last,Counter contador){
+	public static int[] mergeSort(int[] A, int first,int last){
 		int sizeLeftArray;
 		int sizeRightArray;
 		if(last>1){
 			sizeLeftArray=last/2;
 			sizeRightArray=last-sizeLeftArray;
-			mergeSort(A,first,sizeLeftArray,contador);
-			mergeSort(A,first+sizeLeftArray,sizeRightArray,contador);
-			merge(A,first,sizeLeftArray,sizeRightArray,contador);
+			mergeSort(A,first,sizeLeftArray);
+			mergeSort(A,first+sizeLeftArray,sizeRightArray);
+			merge(A,first,sizeLeftArray,sizeRightArray);
 		}
 		
 		return A;
@@ -54,7 +55,7 @@ public class Sort {
 	
 	
 	
-	public static void merge(int[] A, int first, int sizeL, int sizeR,Counter contador){
+	public static void merge(int[] A, int first, int sizeL, int sizeR){
 		 int[ ] temp = new int[sizeL+sizeR]; 
 	      int copiedAtotemp  = 0; 
 	      int copiedLtoA = 0; 
@@ -69,7 +70,7 @@ public class Sort {
 	            temp[copiedAtotemp++] = A[first + (copiedLtoA++)];
 	         else
 	            temp[copiedAtotemp++] = A[first + sizeL + (copiedRtoA++)];
-	         contador.aumentar();
+	         comparaciones++;
 	      }
 
 	      // Copy any remaining entries in the left and right subarrays.
@@ -87,18 +88,18 @@ public class Sort {
 	
 	
 	//quickSort
-	public static int[] quickSort(int[] A, int first, int last,Counter contador){
+	public static int[] quickSort(int[] A, int first, int last){
 		int i = first;
 		int j = last;
 		int piv = A[last];
 		while (i <= j){
 			while(A[i] < piv){
 				i++;
-				contador.aumentar();
+				comparaciones++;
 			}
 			while(A[j] > piv){
 				j--;
-				contador.aumentar();
+				comparaciones++;
 			}
 			if (i <= j){
 				Useful.swap(A,i,j);
@@ -107,9 +108,9 @@ public class Sort {
 			}
 		}
 		if (first < j)
-			quickSort(A,first,j,contador);
+			quickSort(A,first,j);
 		if (i < last)
-			quickSort(A,i,last,contador);
+			quickSort(A,i,last);
 		
 		return A;
 	}	
@@ -127,10 +128,10 @@ public class Sort {
 		Useful.copyArray(A, D);
 		Useful.copyArray(A, E);
 		Useful.printArray(B);
-		Counter contador= new Counter();
-		bubbleSort(B,contador);
-		insertSort(C,contador);
-		mergeSort(A,0,n,contador);
+
+		bubbleSort(B);
+		insertSort(C);
+		mergeSort(A,0,n);
 		Useful.printArray(B);
 		Useful.printArray(A);
 		
