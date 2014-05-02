@@ -25,7 +25,7 @@ public class Useful {
 			System.out.println(A[i] + "\t" + B[i]);
 		}
 	}
-	public static void printArray(int[] A){
+	public static void printArray(long[] A){
 		System.out.print("[ ");
 		for (int i = 0; i < A.length; i++) {
 			System.out.print(A[i] + " ");

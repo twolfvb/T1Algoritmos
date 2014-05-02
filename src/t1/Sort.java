@@ -116,52 +116,74 @@ public class Sort {
 	}	
 	public static void main(String[] args) {
 		
-		int n = (int)Math.pow(2,20);
-		int[] A = Useful.generadorCasiOrdenado(n, 5);
-		//Useful.printArray(A);
-		int[] B = new int[n];
-		Useful.copyArray(A, B);
-		int[] C = new int[n];
-		Useful.copyArray(A, C);
-		int[] D = new int[n];
-		Useful.copyArray(A, D);
 		comparaciones = 0;
+		long start;
+		long end;
+		long microseconds;
+		long[] insComp = new long[11];
+		long[] insTime = new long[11];
+		long[] bubComp = new long[11];
+		long[] bubTime = new long[11];
+		long[] merComp = new long[11];
+		long[] merTime = new long[11];
+		long[] quiComp = new long[11];
+		long[] quiTime = new long[11];
 		
-		long start = System.nanoTime();
-		//insertSort(A);
-		//System.out.println(comparaciones);
-		long end = System.nanoTime();
-		long microseconds = (end - start) / 1000;
-		//System.out.println(microseconds);
-		//System.out.println("InsertSort seconds = " + microseconds/1000000);
+		for (int i = 10; i < 21; i++) {
+			int t = (int)Math.pow(2, i);
+			int[] A = Useful.generadorCasiOrdenado(t, 5);
+			int[] B = new int[t];
+			int[] C = new int[t];
+			int[] D = new int[t];
+			Useful.copyArray(A, B);
+			Useful.copyArray(A, C);
+			Useful.copyArray(A, D);
+			
+			comparaciones = 0;
+			start = System.nanoTime();
+			insertSort(A);
+			end = System.nanoTime();
+			microseconds = (end - start) / 1000;
+			insComp[i-10]=comparaciones;
+			insTime[i-10]=microseconds;
+			
+			comparaciones = 0;
+			start = System.nanoTime();
+			bubbleSort(B);
+			end = System.nanoTime();
+			microseconds = (end - start) / 1000;
+			bubComp[i-10]=comparaciones;
+			bubTime[i-10]=microseconds;
+			
+			comparaciones = 0;
+			start = System.nanoTime();
+			mergeSort(C, 0, t);
+			end = System.nanoTime();
+			microseconds = (end - start) / 1000;
+			merComp[i-10]=comparaciones;
+			merTime[i-10]=microseconds;
+			
+			comparaciones = 0;
+			start = System.nanoTime();
+			quickSort(D,0,t-1);
+			end = System.nanoTime();
+			microseconds = (end - start) / 1000;
+			quiComp[i-10]=comparaciones;
+			quiTime[i-10]=microseconds;
+			
+			System.out.println(i);	
+		}
+		System.out.println("comparations taken, insert bubble merge quick");
+		Useful.printArray(insComp);
+		Useful.printArray(bubComp);
+		Useful.printArray(merComp);
+		Useful.printArray(quiComp);
 		
-		/*comparaciones = 0;
-		start = System.nanoTime();
-		bubbleSort(B);
-		System.out.println(comparaciones);
-		end = System.nanoTime();
-		microseconds = (end - start) / 1000;
-		System.out.println(microseconds);
-		System.out.println("BubbleSort seconds = " + microseconds/1000000);
-		*/
+		System.out.println("time taken, insert bubble merge quick");
+		Useful.printArray(insTime);
+		Useful.printArray(bubTime);
+		Useful.printArray(merTime);
+		Useful.printArray(quiTime);
 		
-		comparaciones = 0;
-		start = System.nanoTime();
-		mergeSort(C,0,n);
-		System.out.println(comparaciones);
-		end = System.nanoTime();
-		microseconds = (end - start) / 1000;
-		System.out.println(microseconds);
-		System.out.println("MergeSort seconds = " + microseconds/1000000);
-		
-		comparaciones = 0;
-		start = System.nanoTime();
-		quickSort(D, 0, n-1);
-		System.out.println(comparaciones);
-		end = System.nanoTime();
-		microseconds = (end - start) / 1000;
-		System.out.println(microseconds);
-		System.out.println("QuickSort seconds = " + microseconds/1000000);		
 	}
-	
 }
